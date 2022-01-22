@@ -1,5 +1,8 @@
 package com.kshired.springbase.common.utils;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class ApiUtils {
     public static <T> ApiResult<T> success(T data) {
         return new ApiResult<>(ApiStatus.SUCCESS, data, null);
@@ -9,6 +12,8 @@ public class ApiUtils {
         return new ApiResult<>(ApiStatus.ERROR, null, message);
     }
 
+    @Getter
+    @Setter
     public static class ApiResult<T> {
         private final String status;
         private final T data;
