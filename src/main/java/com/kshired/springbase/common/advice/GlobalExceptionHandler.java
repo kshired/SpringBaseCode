@@ -11,14 +11,13 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -67,6 +66,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleUnauthorizedException(Exception e){
         log.error("Unauthorized exception occurred: {}", e.getMessage(), e);
         return errorResponse(e, HttpStatus.UNAUTHORIZED);
+    }
+
+    @ExceptionHandler(HttpMediaTypeException.class)
+    public ResponseEntity<?> handleHttpMediaTypeException(Exception e) {
+        return errorResponse(e, HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<?> handleMethodNotAllowedException(Exception e) {
+        return errorResponse(e, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
 
