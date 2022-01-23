@@ -2,12 +2,9 @@ package com.kshired.springbase.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
-public class UserRequestDto {
-    private String email;
-    private String password;
+public class JwtResponseDto {
+    private String token;
 }
